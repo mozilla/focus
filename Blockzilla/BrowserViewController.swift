@@ -801,7 +801,7 @@ extension BrowserViewController: URLBarDelegate {
         }
     }
 
-    func urlBarDidPressScrollTop(_: URLBar, tap: UITapGestureRecognizer) {
+    func urlBarDidTapText(_: URLBar, tap: UITapGestureRecognizer) {
         guard !urlBar.isEditing else { return }
 
         switch scrollBarState {
@@ -819,6 +819,15 @@ extension BrowserViewController: URLBarDelegate {
             var point = webViewController.scrollView.contentOffset
             point.y = 0
             webViewController.scrollView.setContentOffset(point, animated: true)
+        case .collapsed: showToolbars()
+        default: break
+        }
+    }
+    
+    func urlBarDidSingleTap(_: URLBar) {
+        guard !urlBar.isEditing else { return }
+        
+        switch scrollBarState {
         case .collapsed: showToolbars()
         default: break
         }
